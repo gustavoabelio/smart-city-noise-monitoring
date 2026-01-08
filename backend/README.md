@@ -1,0 +1,1 @@
+Spring Boot backend for the Sensor Dashboard project.

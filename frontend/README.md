@@ -1,0 +1,1 @@
+React frontend for the Sensor Dashboard project.
