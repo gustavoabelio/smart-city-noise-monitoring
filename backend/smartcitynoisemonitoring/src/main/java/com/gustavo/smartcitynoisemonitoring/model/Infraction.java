@@ -1,22 +1,27 @@
 package com.gustavo.smartcitynoisemonitoring.model;
 
 import java.time.LocalDateTime;
+import jakarta.persistence.*;
 
+@Entity
 public class Infraction {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long sensorId;
+
     private Double measuredDecibels;
     private Double limitDecibels;
     private LocalDateTime timestamp;
 
-    public Infraction(Long id,
-                      Long sensorId,
-                      Double measuredDecibels,
-                      Double limitDecibels,
-                      LocalDateTime timestamp) {
-        this.id = id;
-        this.sensorId = sensorId;
+    @ManyToOne
+    @JoinColumn(name = "sensor_id")
+    private Sensor sensor;
+
+    public Infraction() {}
+
+    public Infraction(Sensor sensor, Double measuredDecibels, Double limitDecibels, LocalDateTime timestamp) {
+        this.sensor = sensor;
         this.measuredDecibels = measuredDecibels;
         this.limitDecibels = limitDecibels;
         this.timestamp = timestamp;
@@ -24,10 +29,6 @@ public class Infraction {
 
     public Long getId() {
         return id;
-    }
-
-    public Long getSensorId() {
-        return sensorId;
     }
 
     public Double getMeasuredDecibels() {
@@ -40,5 +41,9 @@ public class Infraction {
 
     public LocalDateTime getTimestamp() {
         return timestamp;
+    }
+
+    public Sensor getSensor() {
+        return sensor;
     }
 }

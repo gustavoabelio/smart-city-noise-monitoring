@@ -1,12 +1,20 @@
 package com.gustavo.smartcitynoisemonitoring.model;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Sensor {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String location;
     private Double currentDecibels;
     private Boolean active;
+
+    public Sensor() {}
 
     public Sensor(Long id, String name, String location, Double currentDecibels, Boolean active) {
         this.id = id;
