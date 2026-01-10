@@ -16,8 +16,9 @@ The project is inspired by an academic case study on smart cities, involving:
 - Spring Boot
 - Maven
 - REST API
+- PostgreSQL
 - (Coming soon) React
-- (Coming soon) Database (PostgreSQL or MongoDB)
+
 
 ## Architecture
 The system follows a layered architecture:
