@@ -16,8 +16,7 @@ public class Sensor {
 
     public Sensor() {}
 
-    public Sensor(Long id, String name, String location, Double currentDecibels, Boolean active) {
-        this.id = id;
+    public Sensor(String name, String location, Double currentDecibels, Boolean active) {
         this.name = name;
         this.location = location;
         this.currentDecibels = currentDecibels;

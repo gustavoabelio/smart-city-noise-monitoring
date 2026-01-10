@@ -10,7 +10,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/sensors")
 public class SensorController {
 
-    private final SensorService sensorService = new SensorService();
+    private final SensorService sensorService;
+
+    public SensorController(SensorService sensorService) {
+        this.sensorService = sensorService;
+    }
+
 
     @GetMapping("/test")
     public String test() {
@@ -20,13 +25,8 @@ public class SensorController {
     @GetMapping("/read")
     public SensorReadingResponse readSensor(@RequestParam Double value) {
 
-        Sensor sensor = new Sensor(
-            1L,
-            "Sensor Centro",
-            "Centro - Rio Claro",
-            0.0,
-            true
-        );
+        Sensor sensor = sensorService.findSensorById(1L);
+
 
     Infraction infraction = sensorService.processReading(sensor, value);
 
