@@ -1,8 +1,8 @@
-# 🎧 Smart City Noise Monitoring System
+# Smart City Noise Monitoring System
 
 Noise pollution monitoring system for smart cities, developed as an educational and practical project using Java, Spring Boot, and React.
 
-## 📌 Context
+## Context
 The application simulates sound sensors distributed throughout the city, responsible for measuring environmental noise levels.
 When the decibel level exceeds a defined threshold, the system automatically records a noise infraction.
 
@@ -11,7 +11,7 @@ The project is inspired by an academic case study on smart cities, involving:
 - sensor management
 - environmental infraction control
 
-## ⚙️ Technologies
+## Technologies
 - Java 17+
 - Spring Boot
 - Maven
@@ -19,7 +19,7 @@ The project is inspired by an academic case study on smart cities, involving:
 - (Coming soon) React
 - (Coming soon) Database (PostgreSQL or MongoDB)
 
-## 🧠 Architecture
+## Architecture
 The system follows a layered architecture:
 
 - **Controller** → handles HTTP requests
@@ -27,13 +27,13 @@ The system follows a layered architecture:
 - **Model** → domain entities (Sensor, Infraction)
 - **Repository** → data persistence (under development)
 
-## 🚀 Current Features
+## Current Features
 - Spring Boot REST API
 - Processing of sensor readings
 - Automatic generation of noise infractions
 - Endpoints for testing via browser
 
-## 🛣️ Roadmap
+## Roadmap
 - Data persistence
 - React Frontend
 - Reports and heatmaps
