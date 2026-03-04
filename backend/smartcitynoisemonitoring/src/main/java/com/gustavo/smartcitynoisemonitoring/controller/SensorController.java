@@ -1,10 +1,13 @@
 package com.gustavo.smartcitynoisemonitoring.controller;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.*;
+
 import com.gustavo.smartcitynoisemonitoring.dto.SensorReadingResponse;
 import com.gustavo.smartcitynoisemonitoring.model.Infraction;
 import com.gustavo.smartcitynoisemonitoring.model.Sensor;
 import com.gustavo.smartcitynoisemonitoring.service.SensorService;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/sensors")
@@ -16,21 +19,28 @@ public class SensorController {
         this.sensorService = sensorService;
     }
 
-
-    @GetMapping("/test")
-    public String test() {
-        return "Sensor API funcionando";
+    @PostMapping
+    public Sensor createSensor(@RequestBody Sensor sensor) {
+        return sensorService.saveSensor(sensor);
     }
 
-    @GetMapping("/read")
-    public SensorReadingResponse readSensor(@RequestParam Double value) {
+    @GetMapping
+    public List<Sensor> getAllSensors() {
+        return sensorService.getAllSensors();
+    }
 
-        Sensor sensor = sensorService.findSensorById(1L);
+    @GetMapping("/{id}")
+    public Sensor getSensorById(@PathVariable Long id) {
+        return sensorService.findSensorById(id);
+    }
 
+    @GetMapping("/{id}/read")
+    public SensorReadingResponse readSensor(@PathVariable Long id,
+                                            @RequestParam Double value) {
 
-    Infraction infraction = sensorService.processReading(sensor, value);
+        Sensor sensor = sensorService.findSensorById(id);
+        Infraction infraction = sensorService.processReading(sensor, value);
 
-    return new SensorReadingResponse(sensor, infraction);
-}
-
+        return new SensorReadingResponse(sensor, infraction);
+    }
 }

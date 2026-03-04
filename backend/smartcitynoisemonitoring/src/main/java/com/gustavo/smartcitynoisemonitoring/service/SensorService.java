@@ -1,10 +1,14 @@
 package com.gustavo.smartcitynoisemonitoring.service;
 
+import java.util.List;
+import java.time.LocalDateTime;
+
+import org.springframework.stereotype.Service;
+
 import com.gustavo.smartcitynoisemonitoring.model.Infraction;
 import com.gustavo.smartcitynoisemonitoring.model.Sensor;
 import com.gustavo.smartcitynoisemonitoring.repository.InfractionRepository;
 import com.gustavo.smartcitynoisemonitoring.repository.SensorRepository;
-import org.springframework.stereotype.Service;
 
 @Service
 public class SensorService {
@@ -25,13 +29,27 @@ public class SensorService {
                 .orElseThrow(() -> new RuntimeException("Sensor não encontrado"));
     }
 
+    public Sensor saveSensor(Sensor sensor) {
+        return sensorRepository.save(sensor);
+    }
+
+    public List<Sensor> getAllSensors() {
+        return sensorRepository.findAll();
+    }
+
     public Infraction processReading(Sensor sensor, Double newDecibels) {
 
         sensor.setCurrentDecibels(newDecibels);
         sensorRepository.save(sensor);
 
         if (newDecibels >= LIMIT_DECIBELS) {
-            Infraction infraction = new Infraction(sensor, newDecibels, LIMIT_DECIBELS);
+
+            Infraction infraction = new Infraction(
+                    sensor,
+                    newDecibels,
+                    LIMIT_DECIBELS
+            );
+
             return infractionRepository.save(infraction);
         }
 
