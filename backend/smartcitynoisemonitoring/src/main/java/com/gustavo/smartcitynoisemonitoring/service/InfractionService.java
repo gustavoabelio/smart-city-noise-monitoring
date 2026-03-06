@@ -15,7 +15,6 @@ public class InfractionService {
     }
 
     public InfractionStatsResponse getStats() {
-
         Long total = infractionRepository.countInfractions();
         Double avg = infractionRepository.averageNoise();
         Double max = infractionRepository.maxNoise();

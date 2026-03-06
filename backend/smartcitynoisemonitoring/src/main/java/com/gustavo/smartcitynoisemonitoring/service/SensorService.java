@@ -1,9 +1,11 @@
 package com.gustavo.smartcitynoisemonitoring.service;
 
 import java.util.List;
-import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.gustavo.smartcitynoisemonitoring.model.Infraction;
 import com.gustavo.smartcitynoisemonitoring.model.Sensor;
@@ -17,6 +19,8 @@ public class SensorService {
 
     private final SensorRepository sensorRepository;
     private final InfractionRepository infractionRepository;
+
+    private static final Logger log = LoggerFactory.getLogger(SensorService.class);
 
     public SensorService(SensorRepository sensorRepository,
                          InfractionRepository infractionRepository) {
@@ -38,17 +42,15 @@ public class SensorService {
     }
 
     public Infraction processReading(Sensor sensor, Double newDecibels) {
+        log.info("Processing sensor reading: sensorId={}, value={}", sensor.getId(), newDecibels);
 
         sensor.setCurrentDecibels(newDecibels);
         sensorRepository.save(sensor);
 
         if (newDecibels >= LIMIT_DECIBELS) {
+            log.warn("Noise limit exceeded for sensor {}", sensor.getId());
 
-            Infraction infraction = new Infraction(
-                    sensor,
-                    newDecibels,
-                    LIMIT_DECIBELS
-            );
+            Infraction infraction = new Infraction(sensor,newDecibels,LIMIT_DECIBELS);
 
             return infractionRepository.save(infraction);
         }
