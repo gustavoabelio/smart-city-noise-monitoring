@@ -17,14 +17,14 @@ The project is inspired by an academic case study on smart cities, involving:
 - Maven
 - REST API
 - PostgreSQL
-- (Coming soon) React
+- React
 
 
 ## Architecture
 The system follows a layered architecture:
 
 - **Controller** → handles HTTP requests
-- **Service** → business logic (e.g., infraction generation)
+- **Service** → business logic 
 - **Model** → domain entities (Sensor, Infraction)
 - **Repository** → data persistence (under development)
 
