@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface InfractionRepository extends JpaRepository<Infraction, Long> {
-
     @Query("SELECT COUNT(i) FROM Infraction i")
     Long countInfractions();
 
