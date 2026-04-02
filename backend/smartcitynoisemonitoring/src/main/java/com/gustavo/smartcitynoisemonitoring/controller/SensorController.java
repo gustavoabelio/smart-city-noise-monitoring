@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.gustavo.smartcitynoisemonitoring.dto.SensorReadingResponse;
 import com.gustavo.smartcitynoisemonitoring.model.Infraction;
+import com.gustavo.smartcitynoisemonitoring.model.NoiseReading;
 import com.gustavo.smartcitynoisemonitoring.model.Sensor;
 import com.gustavo.smartcitynoisemonitoring.service.SensorService;
 
@@ -42,5 +43,10 @@ public class SensorController {
         Infraction infraction = sensorService.processReading(sensor, value);
 
         return new SensorReadingResponse(sensor, infraction);
+    }
+
+    @GetMapping("/{id}/history")
+    public List<NoiseReading> getHistory(@PathVariable Long id) {
+        return sensorService.getSensorHistory(id);
     }
 }

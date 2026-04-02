@@ -2,6 +2,7 @@ package com.gustavo.smartcitynoisemonitoring.config;
 
 import com.gustavo.smartcitynoisemonitoring.model.Sensor;
 import com.gustavo.smartcitynoisemonitoring.repository.SensorRepository;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
