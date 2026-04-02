@@ -37,10 +37,10 @@ The system follows a layered architecture:
 - **Controller** → handles HTTP requests
 - **Service** → business logic 
 - **Model** → domain entities (Sensor, Infraction)
-- **Repository** → data persistence (under development)
+- **Repository** → data persistence 
 - **Database** → PostgreSQL for persistent storage 
 
-- **Components** → Reusable UI elements (e.g., NoiseChart)  
+- **Components** → Reusable UI elements
 - **State Management** → Handles sensor selection and data updates  
 - **API Integration** → Communicates with backend via REST endpoints  
 - **Visualization Layer** → Displays data using charts (Recharts)  
@@ -49,7 +49,7 @@ The system follows a layered architecture:
 
 ## Current Features
 
-### Backend (Spring Boot)
+### Backend 
 
 - RESTful API with layered architecture (Controller → Service → Repository)
 - Sensor management and noise reading processing
@@ -66,7 +66,7 @@ The system follows a layered architecture:
 
 ---
 
-### Frontend (React + Vite)
+### Frontend 
 
 - Interactive dashboard
 - Sensor list with real-time status (Normal / High Noise)
