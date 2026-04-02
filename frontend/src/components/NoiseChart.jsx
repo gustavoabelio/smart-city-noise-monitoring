@@ -1,0 +1,13 @@
+import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+
+export default function NoiseChart({ data }) {
+  return (
+    <LineChart width={600} height={300} data={data}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="timestamp" />
+      <YAxis />
+      <Tooltip />
+      <Line type="monotone" dataKey="value" />
+    </LineChart>
+  );
+}
