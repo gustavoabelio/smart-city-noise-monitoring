@@ -2,6 +2,8 @@
 
 Noise pollution monitoring system for smart cities, developed as an educational and practical project using Java, Spring Boot, and React.
 
+---
+
 ## Context
 The application simulates sound sensors distributed throughout the city, responsible for measuring environmental noise levels.
 When the decibel level exceeds a defined threshold, the system automatically records a noise infraction.
@@ -11,14 +13,23 @@ The project is inspired by an academic case study on smart cities, involving:
 - sensor management
 - environmental infraction control
 
+---
+
 ## Technologies
+
+### Backend
 - Java 17+
 - Spring Boot
-- Maven
-- REST API
+- Spring Data JPA
+- Hibernate
 - PostgreSQL
-- React
 
+### Frontend
+- React
+- Vite
+- Recharts
+
+---
 
 ## Architecture
 The system follows a layered architecture:
@@ -27,15 +38,64 @@ The system follows a layered architecture:
 - **Service** → business logic 
 - **Model** → domain entities (Sensor, Infraction)
 - **Repository** → data persistence (under development)
+- **Database** → PostgreSQL for persistent storage 
+
+- **Components** → Reusable UI elements (e.g., NoiseChart)  
+- **State Management** → Handles sensor selection and data updates  
+- **API Integration** → Communicates with backend via REST endpoints  
+- **Visualization Layer** → Displays data using charts (Recharts)  
+
+---
 
 ## Current Features
-- Spring Boot REST API
-- Processing of sensor readings
-- Automatic generation of noise infractions
-- Endpoints for testing via browser
+
+### Backend (Spring Boot)
+
+- RESTful API with layered architecture (Controller → Service → Repository)
+- Sensor management and noise reading processing
+- Automatic noise infraction detection
+- Historical tracking of sensor readings
+- Aggregated statistics:
+  - Total infractions
+  - Average noise level
+  - Maximum noise level
+- Data persistence using PostgreSQL and JPA/Hibernate
+- Global exception handling
+- Logging with SLF4J
+- API documentation with Swagger
+
+---
+
+### Frontend (React + Vite)
+
+- Interactive dashboard
+- Sensor list with real-time status (Normal / High Noise)
+- Dynamic noise chart (Recharts)
+- Sensor selection with live chart updates
+- Integration with backend REST API
+
+---
 
 ## Roadmap
-- Data persistence
-- React Frontend
-- Reports and heatmaps
-- Authentication and user management
+- Real-time updates (auto refresh / WebSockets)
+- Sensor simulation
+- UI/UX improvements
+- Authentication and user roles
+- Deployment (cloud + Docker)
+
+---
+
+## Running the Project
+
+### Backend
+
+```bash
+cd backend
+./mvnw spring-boot:run
+```
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
