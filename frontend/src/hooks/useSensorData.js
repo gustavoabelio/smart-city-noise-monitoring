@@ -47,7 +47,7 @@ export default function useSensorData() {
     const interval = setInterval(() => {
       fetchSensorsAndStats();
       fetchHistory();
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, []);
