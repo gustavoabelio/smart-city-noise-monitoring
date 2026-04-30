@@ -1,68 +1,15 @@
-import { useEffect, useState } from "react";
 import NoiseChart from "./components/NoiseChart";
+import useSensorData from "./hooks/useSensorData";
 
 function App() {
 
-  const [sensors, setSensors] = useState([]);
-  const [history, setHistory] = useState([]);
-  const [stats, setStats] = useState(null);
-  const [selectedSensorId, setSelectedSensorId] = useState(1);
-
-  const refreshData = () => {
-    fetch("http://localhost:8080/sensors")
-      .then(res => res.json())
-      .then(data => setSensors(data));
-
-    fetch("http://localhost:8080/infractions/stats")
-      .then(res => res.json())
-      .then(data => setStats(data));
-
-    fetch(`http://localhost:8080/sensors/${selectedSensorId}/history`)
-      .then(res => res.json())
-      .then(data => {
-        const formatted = data
-          .slice(-20)
-          .map(item => ({
-            ...item,
-            timestamp: new Date(item.timestamp).toLocaleTimeString()
-          }));
-        setHistory(formatted);
-      });
-  };
-
-  useEffect(() => {
-    fetch("http://localhost:8080/sensors")
-      .then(res => res.json())
-      .then(data => setSensors(data));
-
-    fetch("http://localhost:8080/infractions/stats")
-      .then(res => res.json())
-      .then(data => setStats(data));
-  }, []);
-
-
-  useEffect(() => {
-    fetch(`http://localhost:8080/sensors/${selectedSensorId}/history`)
-      .then(res => res.json())
-      .then(data => {
-        const formatted = data
-          .slice(-20) 
-          .map(item => ({
-            ...item,
-            timestamp: new Date(item.timestamp).toLocaleTimeString()
-          }));
-
-        setHistory(formatted);
-      });
-  }, [selectedSensorId]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      refreshData();
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [selectedSensorId]);
+  const {
+    sensors,
+    stats,
+    history,
+    selectedSensorId,
+    setSelectedSensorId
+  } = useSensorData();
 
   return (
     <div style={{ padding: "40px", fontFamily: "Arial", background: "#0f172a", minHeight: "100vh", color: "white" }}>
@@ -93,7 +40,6 @@ function App() {
       <h2>Sensors</h2>
 
       <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-
         {sensors.map(sensor => {
 
           const highNoise = sensor.currentDecibels >= 70;
@@ -113,15 +59,11 @@ function App() {
                       ? "2px solid #ef4444"
                       : "2px solid #22c55e",
                 transition: "0.25s",
-                cursor: "pointer",
-                transform: "scale(1)"
+                cursor: "pointer"
               }}
-              onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.05)"}
-              onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
               onClick={() => setSelectedSensorId(sensor.id)}
             >
               <h3>{sensor.name}</h3>
-
               <p>{sensor.location}</p>
 
               <p style={{ fontSize: "22px", fontWeight: "bold" }}>
@@ -131,24 +73,16 @@ function App() {
               <p style={{ color: highNoise ? "#ef4444" : "#22c55e" }}>
                 {highNoise ? "High Noise" : "Normal"}
               </p>
-
             </div>
           );
         })}
-
       </div>
-      <h2 style={{
-        marginTop: "50px",
-        marginBottom: "10px"
-      }}>
+
+      <h2 style={{ marginTop: "50px", marginBottom: "10px" }}>
         Noise History
       </h2>
 
-      <div style={{
-        display: "flex",
-        justifyContent: "center",
-        marginTop: "20px"
-      }}>
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
         <div style={{
           background: "#1e293b",
           padding: "20px",
