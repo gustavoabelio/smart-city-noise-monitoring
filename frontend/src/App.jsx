@@ -20,10 +20,12 @@ function App() {
     fetch(`http://localhost:8080/sensors/${selectedSensorId}/history`)
       .then(res => res.json())
       .then(data => {
-        const formatted = data.map(item => ({
-          ...item,
-          timestamp: new Date(item.timestamp).toLocaleTimeString()
-        }));
+        const formatted = data
+          .slice(-20)
+          .map(item => ({
+            ...item,
+            timestamp: new Date(item.timestamp).toLocaleTimeString()
+          }));
         setHistory(formatted);
       });
   };
@@ -43,10 +45,13 @@ function App() {
     fetch(`http://localhost:8080/sensors/${selectedSensorId}/history`)
       .then(res => res.json())
       .then(data => {
-        const formatted = data.map(item => ({
-          ...item,
-          timestamp: new Date(item.timestamp).toLocaleTimeString()
-        }));
+        const formatted = data
+          .slice(-20) 
+          .map(item => ({
+            ...item,
+            timestamp: new Date(item.timestamp).toLocaleTimeString()
+          }));
+
         setHistory(formatted);
       });
   }, [selectedSensorId]);
@@ -120,7 +125,7 @@ function App() {
               <p>{sensor.location}</p>
 
               <p style={{ fontSize: "22px", fontWeight: "bold" }}>
-                {sensor.currentDecibels} dB
+                {sensor.currentDecibels?.toFixed(1)} dB
               </p>
 
               <p style={{ color: highNoise ? "#ef4444" : "#22c55e" }}>
