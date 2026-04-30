@@ -8,8 +8,7 @@ function App() {
   const [stats, setStats] = useState(null);
   const [selectedSensorId, setSelectedSensorId] = useState(1);
 
-  useEffect(() => {
-
+  const refreshData = () => {
     fetch("http://localhost:8080/sensors")
       .then(res => res.json())
       .then(data => setSensors(data));
@@ -21,15 +20,43 @@ function App() {
     fetch(`http://localhost:8080/sensors/${selectedSensorId}/history`)
       .then(res => res.json())
       .then(data => {
-        console.log("HISTORY:", data);
-        
         const formatted = data.map(item => ({
           ...item,
           timestamp: new Date(item.timestamp).toLocaleTimeString()
         }));
         setHistory(formatted);
       });
+  };
 
+  useEffect(() => {
+    fetch("http://localhost:8080/sensors")
+      .then(res => res.json())
+      .then(data => setSensors(data));
+
+    fetch("http://localhost:8080/infractions/stats")
+      .then(res => res.json())
+      .then(data => setStats(data));
+  }, []);
+
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/sensors/${selectedSensorId}/history`)
+      .then(res => res.json())
+      .then(data => {
+        const formatted = data.map(item => ({
+          ...item,
+          timestamp: new Date(item.timestamp).toLocaleTimeString()
+        }));
+        setHistory(formatted);
+      });
+  }, [selectedSensorId]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refreshData();
+    }, 5000);
+
+    return () => clearInterval(interval);
   }, [selectedSensorId]);
 
   return (
