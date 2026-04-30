@@ -1,7 +1,5 @@
 package com.gustavo.smartcitynoisemonitoring.controller;
 
-import java.util.List;
-
 import org.springframework.web.bind.annotation.*;
 
 import com.gustavo.smartcitynoisemonitoring.dto.SensorReadingResponse;
@@ -9,6 +7,8 @@ import com.gustavo.smartcitynoisemonitoring.model.Infraction;
 import com.gustavo.smartcitynoisemonitoring.model.NoiseReading;
 import com.gustavo.smartcitynoisemonitoring.model.Sensor;
 import com.gustavo.smartcitynoisemonitoring.service.SensorService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/sensors")

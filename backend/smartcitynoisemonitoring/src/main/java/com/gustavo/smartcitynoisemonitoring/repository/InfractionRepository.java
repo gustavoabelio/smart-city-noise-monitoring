@@ -1,6 +1,7 @@
 package com.gustavo.smartcitynoisemonitoring.repository;
 
 import com.gustavo.smartcitynoisemonitoring.model.Infraction;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
