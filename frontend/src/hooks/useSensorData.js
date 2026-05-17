@@ -7,17 +7,17 @@ export default function useSensorData() {
   const [selectedSensorId, setSelectedSensorId] = useState(1);
 
   const fetchSensorsAndStats = () => {
-    fetch("http://localhost:8080/sensors")
+    fetch("https://smart-city-noise-monitoring.onrender.com/sensors")
       .then(res => res.json())
       .then(data => setSensors(data));
 
-    fetch("http://localhost:8080/infractions/stats")
+    fetch("https://smart-city-noise-monitoring.onrender.com/infractions/stats")
       .then(res => res.json())
       .then(data => setStats(data));
   };
 
   const fetchHistory = () => {
-    fetch(`http://localhost:8080/sensors/${selectedSensorId}/history`)
+    fetch(`https://smart-city-noise-monitoring.onrender.com/sensors/${selectedSensorId}/history`)
       .then(res => res.json())
       .then(data => {
 
