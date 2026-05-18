@@ -31,7 +31,7 @@ function App() {
 
           <div style={cardStyle}>
             <h3>Max Noise</h3>
-            <p style={numberStyle}>{stats.maxNoise} dB</p>
+            <p style={numberStyle}>{stats.maxNoise.toFixed(1)} dB</p>
           </div>
 
         </div>
