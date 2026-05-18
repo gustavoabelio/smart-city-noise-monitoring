@@ -75,7 +75,7 @@ export default function App() {
                 className="metric-sub"
                 style={{ color: stats.totalInfractions > 0 ? "#E24B4A" : "#1D9E75" }}
               >
-                {stats.totalInfractions > 0 ? "Número de infrações totais" : "Sem infrações"}
+                {stats.totalInfractions > 0 ? "Atenção necessária" : "Sem infrações"}
               </div>
             </div>
 
@@ -96,7 +96,7 @@ export default function App() {
                 <span className="metric-unit"> dB</span>
               </div>
               <div className="metric-sub" style={{ color: "#888780" }}>
-                média geral
+                Média geral
               </div>
             </div>
 
