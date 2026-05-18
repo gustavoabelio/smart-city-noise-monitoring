@@ -50,7 +50,7 @@ export default function useSensorData() {
     }, 10000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [selectedSensorId]);
 
   return {
     sensors,
