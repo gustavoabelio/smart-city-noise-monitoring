@@ -7,17 +7,17 @@ export default function useSensorData() {
   const [selectedSensorId, setSelectedSensorId] = useState(1);
 
   const fetchSensorsAndStats = () => {
-    fetch("https://smart-city-noise-monitoring.onrender.com/sensors")
+    fetch(`${import.meta.env.VITE_API_URL}/sensors`)
       .then(res => res.json())
       .then(data => setSensors(data));
 
-    fetch("https://smart-city-noise-monitoring.onrender.com/infractions/stats")
+    fetch(`${import.meta.env.VITE_API_URL}/infractions/stats`)
       .then(res => res.json())
       .then(data => setStats(data));
   };
 
   const fetchHistory = () => {
-    fetch(`https://smart-city-noise-monitoring.onrender.com/sensors/${selectedSensorId}/history`)
+    fetch(`${import.meta.env.VITE_API_URL}/sensors/${selectedSensorId}/history`)
       .then(res => res.json())
       .then(data => {
 
