@@ -14,7 +14,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://smart-city-noise-monitoring.vercel.app")
+                        .allowedOrigins("https://smart-city-noise-monitoring.vercel.app", "http://localhost:5173")
                         .allowedMethods("*");
             }
         };
