@@ -1,112 +1,190 @@
 import NoiseChart from "./components/NoiseChart";
 import useSensorData from "./hooks/useSensorData";
+import "./App.css";
 
-function App() {
+const THRESHOLD = 75;
 
-  const {
-    sensors,
-    stats,
-    history,
-    selectedSensorId,
-    setSelectedSensorId
-  } = useSensorData();
+function getStatus(db) {
+  if (db >= THRESHOLD) return "infraction";
+  if (db >= 65) return "high";
+  return "normal";
+}
+
+const STATUS_LABEL = {
+  normal: "normal",
+  high: "alto",
+  infraction: "infração",
+};
+
+const STATUS_COLOR = {
+  normal: "#1D9E75",
+  high: "#EF9F27",
+  infraction: "#E24B4A",
+};
+
+const STATUS_BG = {
+  normal: "#04342C",
+  high: "#412402",
+  infraction: "#501313",
+};
+
+export default function App() {
+  const { sensors, stats, history, selectedSensorId, setSelectedSensorId } =
+    useSensorData();
+
+  const selectedSensor = sensors.find((s) => s.id === selectedSensorId);
 
   return (
-    <div style={{ padding: "40px", fontFamily: "Arial", background: "#0f172a", minHeight: "100vh", color: "white" }}>
-
-      <h1 style={{ marginBottom: "30px" }}>Smart City Noise Monitoring</h1>
-
-      {stats && (
-        <div style={{ display: "flex", gap: "20px", marginBottom: "40px" }}>
-
-          <div style={cardStyle}>
-            <h3>Total Infractions</h3>
-            <p style={numberStyle}>{stats.totalInfractions}</p>
-          </div>
-
-          <div style={cardStyle}>
-            <h3>Average Noise</h3>
-            <p style={numberStyle}>{stats.averageNoise.toFixed(1)} dB</p>
-          </div>
-
-          <div style={cardStyle}>
-            <h3>Max Noise</h3>
-            <p style={numberStyle}>{stats.maxNoise.toFixed(1)} dB</p>
-          </div>
-
+    <div className="dash">
+      {}
+      <header className="topbar">
+        <div className="topbar-left">
+          <span className="logo-dot" />
+          <span className="logo-text">smart city — noise monitoring</span>
         </div>
-      )}
+        <div className="topbar-right">
+          <span className="live-badge">
+            <span className="live-dot" />
+            live
+          </span>
+        </div>
+      </header>
 
-      <h2>Sensors</h2>
-
-      <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-        {sensors.map(sensor => {
-
-          const highNoise = sensor.currentDecibels >= 70;
-
-          return (
-            <div
-              key={sensor.id}
-              style={{
-                background: "#1e293b",
-                padding: "20px",
-                borderRadius: "10px",
-                width: "220px",
-                border:
-                  selectedSensorId === sensor.id
-                    ? "2px solid #3b82f6"
-                    : highNoise
-                      ? "2px solid #ef4444"
-                      : "2px solid #22c55e",
-                transition: "0.25s",
-                cursor: "pointer"
-              }}
-              onClick={() => setSelectedSensorId(sensor.id)}
-            >
-              <h3>{sensor.name}</h3>
-              <p>{sensor.location}</p>
-
-              <p style={{ fontSize: "22px", fontWeight: "bold" }}>
-                {sensor.currentDecibels?.toFixed(1)} dB
-              </p>
-
-              <p style={{ color: highNoise ? "#ef4444" : "#22c55e" }}>
-                {highNoise ? "High Noise" : "Normal"}
-              </p>
+      <main className="content">
+        {}
+        {stats && (
+          <div className="metrics">
+            <div className="metric-card">
+              <div className="metric-label">sensores ativos</div>
+              <div className="metric-value">
+                {sensors.length}
+                <span className="metric-unit"> / {sensors.length}</span>
+              </div>
+              <div className="metric-sub ok">todos online</div>
             </div>
-          );
-        })}
-      </div>
 
-      <h2 style={{ marginTop: "50px", marginBottom: "10px" }}>
-        Noise History
-      </h2>
+            <div className="metric-card">
+              <div className="metric-label">infrações totais</div>
+              <div
+                className="metric-value"
+                style={{ color: stats.totalInfractions > 0 ? "#E24B4A" : "#1D9E75" }}
+              >
+                {stats.totalInfractions}
+              </div>
+              <div
+                className="metric-sub"
+                style={{ color: stats.totalInfractions > 0 ? "#E24B4A" : "#1D9E75" }}
+              >
+                {stats.totalInfractions > 0 ? "requer atenção" : "sem infrações"}
+              </div>
+            </div>
 
-      <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-        <div style={{
-          background: "#1e293b",
-          padding: "20px",
-          borderRadius: "10px",
-          width: "700px"
-        }}>
-          <NoiseChart data={history} />
+            <div className="metric-card">
+              <div className="metric-label">média de ruído</div>
+              <div
+                className="metric-value"
+                style={{
+                  color:
+                    stats.averageNoise >= THRESHOLD
+                      ? "#E24B4A"
+                      : stats.averageNoise >= 65
+                      ? "#EF9F27"
+                      : "#1D9E75",
+                }}
+              >
+                {stats.averageNoise.toFixed(1)}
+                <span className="metric-unit"> dB</span>
+              </div>
+              <div className="metric-sub" style={{ color: "#888780" }}>
+                média geral
+              </div>
+            </div>
+
+            <div className="metric-card">
+              <div className="metric-label">pico registrado</div>
+              <div className="metric-value" style={{ color: "#E24B4A" }}>
+                {stats.maxNoise.toFixed(1)}
+                <span className="metric-unit"> dB</span>
+              </div>
+              <div className="metric-sub" style={{ color: "#888780" }}>
+                maior leitura
+              </div>
+            </div>
+          </div>
+        )}
+
+        {}
+        <div className="main-grid">
+          {}
+          <div className="panel">
+            <div className="panel-title">
+              histórico de ruído
+              {selectedSensor && (
+                <span className="panel-title-sub">— {selectedSensor.name}</span>
+              )}
+            </div>
+            <NoiseChart data={history} threshold={THRESHOLD} />
+            <div className="chart-legend">
+              <span className="legend-item">
+                <span className="legend-line" style={{ background: "#1D9E75" }} />
+                leitura (dB)
+              </span>
+              <span className="legend-item">
+                <span
+                  className="legend-line"
+                  style={{
+                    background: "transparent",
+                    borderTop: "2px dashed #E24B4A",
+                    height: 0,
+                    marginTop: "6px",
+                  }}
+                />
+                limite ({THRESHOLD} dB)
+              </span>
+            </div>
+          </div>
+
+          {}
+          <div className="panel">
+            <div className="panel-title">sensores</div>
+            <div className="sensor-list">
+              {sensors.map((sensor) => {
+                const status = getStatus(sensor.currentDecibels ?? 0);
+                const color = STATUS_COLOR[status];
+                const bg = STATUS_BG[status];
+                const isSelected = selectedSensorId === sensor.id;
+
+                return (
+                  <div
+                    key={sensor.id}
+                    className={`sensor-item${isSelected ? " active" : ""}`}
+                    onClick={() => setSelectedSensorId(sensor.id)}
+                    style={isSelected ? { borderColor: "#1D9E75" } : {}}
+                  >
+                    <span
+                      className="sensor-dot"
+                      style={{ background: color }}
+                    />
+                    <div className="sensor-info">
+                      <div className="sensor-name">{sensor.name}</div>
+                      <div className="sensor-loc">{sensor.location}</div>
+                      <span
+                        className="status-badge"
+                        style={{ background: bg, color }}
+                      >
+                        {STATUS_LABEL[status]}
+                      </span>
+                    </div>
+                    <div className="sensor-db" style={{ color }}>
+                      {(sensor.currentDecibels ?? 0).toFixed(1)} dB
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
-      </div>
-
+      </main>
     </div>
   );
 }
-
-const cardStyle = {
-  background: "#1e293b",
-  padding: "20px",
-  borderRadius: "10px",
-  width: "200px"
-};
-
-const numberStyle = {
-  fontSize: "26px",
-  fontWeight: "bold"
-};
-
-export default App;
