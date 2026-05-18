@@ -4,6 +4,18 @@ Noise pollution monitoring system for smart cities, developed as an educational 
 
 ---
 
+## Live Demo
+
+### Frontend
+https://smart-city-noise-monitoring.vercel.app
+
+### Backend API
+https://smart-city-noise-monitoring.onrender.com/sensors
+
+> **Note:** This is a free-tier live demo. The backend may sleep after inactivity (which may take about 1 minute to wake up), and the PostgreSQL database expires after 30 days on the free plan, so live data may not always be available.
+
+---
+
 ## Context
 The application simulates sound sensors distributed throughout the city, responsible for measuring environmental noise levels.
 When the decibel level exceeds a defined threshold, the system automatically records a noise infraction.
@@ -23,24 +35,37 @@ The project is inspired by an academic case study on smart cities, involving:
 - Spring Data JPA
 - Hibernate
 - PostgreSQL
+- Swagger / OpenAPI
+- Docker
 
 ### Frontend
 - React
 - Vite
 - Recharts
+- JavaScript
+
+### Cloud & Deployment
+
+- Render (Backend + PostgreSQL)
+- Vercel (Frontend)
+- Docker
 
 ---
 
 ## Architecture
-The system follows a layered architecture:
+
+The backend follows a layered architecture:
 
 - **Controller** → handles HTTP requests
 - **Service** → business logic 
-- **Model** → domain entities (Sensor, Infraction)
+- **Model** → domain entities 
 - **Repository** → data persistence 
 - **Database** → PostgreSQL for persistent storage 
 
+The frontend is organized into:
+
 - **Components** → Reusable UI elements
+- **Custom Hooks** → sensor data and polling logic
 - **State Management** → Handles sensor selection and data updates  
 - **API Integration** → Communicates with backend via REST endpoints  
 - **Visualization Layer** → Displays data using charts (Recharts)  
@@ -52,7 +77,8 @@ The system follows a layered architecture:
 ### Backend 
 
 - RESTful API with layered architecture (Controller → Service → Repository)
-- Sensor management and noise reading processing
+- Automatic sensor simulation
+- Noise reading processing
 - Automatic noise infraction detection
 - Historical tracking of sensor readings
 - Aggregated statistics:
@@ -63,6 +89,8 @@ The system follows a layered architecture:
 - Global exception handling
 - Logging with SLF4J
 - API documentation with Swagger
+- Dockerized deployment
+- Cloud deployment with Render
 
 ---
 
@@ -73,24 +101,76 @@ The system follows a layered architecture:
 - Dynamic noise chart (Recharts)
 - Sensor selection with live chart updates
 - Integration with backend REST API
+- Cloud deployment with Vercel
 
 ---
 
-## Roadmap
-- Real-time updates (auto refresh / WebSockets)
-- Sensor simulation
-- UI/UX improvements
-- Authentication and user roles
-- Deployment (cloud + Docker)
+## API Endpoints
+
+### Sensors
+
+```http
+GET /sensors
+```
+
+Returns all sensors and current noise levels.
+
+```http
+GET /sensors/{id}/history
+```
+
+Returns historical readings for a sensor.
 
 ---
 
-## Running the Project
+### Infractions
+
+```http
+GET /infractions/stats
+```
+
+Returns aggregated statistics:
+
+- total infractions
+- average noise
+- maximum noise
+
+---
+
+## Deployment
+
+The project is fully deployed in the cloud:
+
+| Service | Platform |
+|---|---|
+| Frontend | Vercel |
+| Backend | Render |
+| Database | PostgreSQL (Render) |
+
+---
+
+## Learning Goals
+
+This project was developed to practice:
+
+- Full-stack development
+- REST API design
+- Spring Boot architecture
+- React state management
+- Docker containerization
+- Cloud deployment
+- PostgreSQL integration
+- Real-time dashboard concepts
+- Software architecture principles
+
+---
+
+## Running the Project Locally
 
 ### Backend
 
 ```bash
-cd backend
+cd backend/smartcitynoisemonitoring
 ./mvnw spring-boot:run
 ```
 ### Frontend
@@ -99,3 +179,4 @@ cd backend
 cd frontend
 npm install
 npm run dev
+```
