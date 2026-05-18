@@ -40,7 +40,7 @@ export default function App() {
       <header className="topbar">
         <div className="topbar-left">
           <span className="logo-dot" />
-          <span className="logo-text">smart city — noise monitoring</span>
+          <span className="logo-text">Smart City — Noise Monitoring</span>
         </div>
         <div className="topbar-right">
           <span className="live-badge">
@@ -60,7 +60,7 @@ export default function App() {
                 {sensors.length}
                 <span className="metric-unit"> / {sensors.length}</span>
               </div>
-              <div className="metric-sub ok">todos online</div>
+              <div className="metric-sub ok">Todos online</div>
             </div>
 
             <div className="metric-card">
@@ -75,7 +75,7 @@ export default function App() {
                 className="metric-sub"
                 style={{ color: stats.totalInfractions > 0 ? "#E24B4A" : "#1D9E75" }}
               >
-                {stats.totalInfractions > 0 ? "requer atenção" : "sem infrações"}
+                {stats.totalInfractions > 0 ? "Número de infrações totais" : "Sem infrações"}
               </div>
             </div>
 
@@ -107,7 +107,7 @@ export default function App() {
                 <span className="metric-unit"> dB</span>
               </div>
               <div className="metric-sub" style={{ color: "#888780" }}>
-                maior leitura
+                Maior leitura
               </div>
             </div>
           </div>
