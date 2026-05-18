@@ -14,8 +14,9 @@ public class DataInitializer {
     CommandLineRunner initSensors(SensorRepository sensorRepository) {
         return args -> {
             if (sensorRepository.count() == 0) {
-                Sensor sensor = new Sensor("Sensor Centro", "Centro - Rio Claro", 0.0, true);
-                sensorRepository.save(sensor);
+                sensorRepository.save(new Sensor("Sensor Centro", "Centro - Rio Claro", 0.0, true));
+                sensorRepository.save(new Sensor("Sensor Terminal", "Terminal Rodoviário - Rio Claro", 0.0, true));
+                sensorRepository.save(new Sensor("Sensor Bela Vista", "Bela Vista - Rio Claro", 0.0, true));
             }
         };
     }
