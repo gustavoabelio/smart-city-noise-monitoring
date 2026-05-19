@@ -36,7 +36,6 @@ export default function App() {
 
   return (
     <div className="dash">
-      {}
       <header className="topbar">
         <div className="topbar-left">
           <span className="logo-dot" />
@@ -51,7 +50,6 @@ export default function App() {
       </header>
 
       <main className="content">
-        {}
         {stats && (
           <div className="metrics">
             <div className="metric-card">
@@ -113,9 +111,7 @@ export default function App() {
           </div>
         )}
 
-        {}
         <div className="main-grid">
-          {}
           <div className="panel">
             <div className="panel-title">
               histórico de ruído
@@ -144,7 +140,6 @@ export default function App() {
             </div>
           </div>
 
-          {}
           <div className="panel">
             <div className="panel-title">sensores</div>
             <div className="sensor-list">
