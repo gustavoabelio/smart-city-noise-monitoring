@@ -149,29 +149,34 @@ The project is fully deployed in the cloud:
 
 ---
 
-## Learning Goals
-
-This project was developed to practice:
-
-- Full-stack development
-- REST API design
-- Spring Boot architecture
-- React state management
-- Docker containerization
-- Cloud deployment
-- PostgreSQL integration
-- Real-time dashboard concepts
-- Software architecture principles
-
----
-
 ## Running the Project Locally
+
+### Prerequisites
+- Java 21
+- Node.js
+- PostgreSQL running locally
+
+Create the database:
+```sql
+CREATE DATABASE smartcity;
+```
+
+Then, create the file:
+`backend/smartcitynoisemonitoring/src/main/resources/application-dev.yml`
+
+```yaml
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/smartcity
+    username: postgres
+    password: YOUR_PASSWORD
+```
 
 ### Backend
 
 ```bash
 cd backend/smartcitynoisemonitoring
-./mvnw spring-boot:run
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 ### Frontend
 
