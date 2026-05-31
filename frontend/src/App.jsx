@@ -39,7 +39,7 @@ export default function App() {
       <header className="topbar">
         <div className="topbar-left">
           <span className="logo-dot" />
-          <span className="logo-text">Smart City — Noise Monitoring</span>
+          <span className="logo-text">Smart City Noise Monitoring</span>
         </div>
         <div className="topbar-right">
           <span className="live-badge">
@@ -68,12 +68,6 @@ export default function App() {
                 style={{ color: stats.totalInfractions > 0 ? "#E24B4A" : "#1D9E75" }}
               >
                 {stats.totalInfractions}
-              </div>
-              <div
-                className="metric-sub"
-                style={{ color: stats.totalInfractions > 0 ? "#E24B4A" : "#1D9E75" }}
-              >
-                {stats.totalInfractions > 0 ? "Atenção necessária" : "Sem infrações"}
               </div>
             </div>
 
