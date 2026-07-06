@@ -21,19 +21,10 @@ The project is inspired by an academic case study on smart cities, involving:
 
 ---
 
-## Live Demo
-
-- [Frontend](https://smart-city-noise-monitoring.vercel.app)
-- [Backend API](https://smart-city-noise-monitoring.onrender.com/sensors)
-
-> **Note:** This is a free-tier live demo. The backend may sleep after inactivity (which may take about 1 minute to wake up), and the PostgreSQL database expires after 30 days on the free plan, so live data may not always be available.
-
----
-
 ## Technologies
 
 ### Backend
-- Java 17+
+- Java 21
 - Spring Boot
 - Spring Data JPA
 - Hibernate
