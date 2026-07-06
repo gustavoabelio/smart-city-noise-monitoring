@@ -57,21 +57,21 @@ The project is inspired by an academic case study on smart cities, involving:
 
 ## Architecture
 
-The backend follows a layered architecture:
+The backend follows a layered architecture with clear separation of concerns:
 
-- **Controller** → handles HTTP requests
-- **Service** → business logic 
-- **Model** → domain entities 
-- **Repository** → data persistence 
-- **Database** → PostgreSQL for persistent storage 
+- **Controller** → exposes REST endpoints and delegates to services
+- **Service** → handles business logic, including noise reading processing and infraction detection
+- **Repository** → data access layer using Spring Data JPA
+- **Model** → JPA entities mapped to PostgreSQL tables
+- **DTO** → dedicated response objects to decouple API contracts from internal models
+
+A scheduled service (`SensorSimulationService`) runs every 10 seconds to simulate noise readings across all active sensors. When a reading exceeds the defined threshold (70 dB), an infraction is automatically recorded.
 
 The frontend is organized into:
 
-- **Components** → Reusable UI elements
-- **Custom Hooks** → sensor data and polling logic
-- **State Management** → Handles sensor selection and data updates  
-- **API Integration** → Communicates with backend via REST endpoints  
-- **Visualization Layer** → Displays data using charts (Recharts)  
+- **Components** → reusable UI elements (sensor list, chart, stat cards)
+- **Custom Hooks** → polling logic and sensor data fetching
+- **Visualization** → real-time noise chart built with Recharts
 
 ---
 
