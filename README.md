@@ -133,13 +133,15 @@ Returns aggregated statistics:
 
 ## Deployment
 
-The project is fully deployed in the cloud:
+The project was successfully deployed to the cloud to validate the complete deployment workflow.
 
 | Service | Platform |
 |---|---|
 | Frontend | Vercel |
 | Backend | Render |
 | Database | PostgreSQL (Render) |
+
+> **Note:** The original deployment used free-tier services. The PostgreSQL database instance has since expired, so the live application is no longer available. The project can still be run locally by following the instructions below.
 
 ---
 
